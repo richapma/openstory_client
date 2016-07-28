@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Adventure Mashup</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">  
+<link rel="stylesheet" href="www/js/jquery/mobile/jquery.mobile-1.4.4.min.css" />
+<link rel="stylesheet" href="www/css/jquerymobile_override.css" /> 
+<link rel="stylesheet" href="www/css/openstory.css" />    
+<script type="text/javascript" src="www/js/jquery/jquery-2.1.1.min.js" ></script>  
+<script type="text/javascript" src="www/js/jquery/mobile/jquery.mobile-1.4.4.min.js" ></script> 
+<script type="text/javascript" src="www/js/storage_fallback.js" ></script>
+<script type="text/javascript" src="www/js/openstory_global.js"></script>
+<script type="text/javascript" src="www/js/openstory_index.js"></script>
+</head>
+<body>   
+    <div id="story" tabindex="0" class="ui-page ui-page-theme-a ui-page-active background_div_landing" data-url="/Index.html">
+        <!-- version="1.1" -->
+        <div id="story_main_menu" style="width:25em; height:25em; min-height:23em; max-height:23em; overflow:hidden;" data-role="popup" data-history="false" data-theme="b" data-overlay-theme="b" data-dismissible="false" data-position-to="window">
+            <div data-role="header" data-theme="a" style="width:25em; height:3em; min-height:3em; max-height:3em; overflow:hidden;">
+                <h1>Main Menu</h1>
+            </div>
+        <div class="ui-content" role="main" style="width:23em; height:20em; min-height:20em; max-height:20em; overflow-y:scroll; padding:0 1em 0 1em">
+            <div data-role="collapsible-set">
+                <div>
+                    <ul data-role="listview" data-inset="true">
+                        <li class="ui-field-contain">
+                            <a id="button-new-story" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" href="javascript:_AMI.new_story()" data-rel="">New Story</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div data-role="collapsible" data-collapsed="true">
+	                <h3 id="region_save">Save Story...</h3>
+	                         <ul data-role="listview" data-inset="true">
+                                <li id="slider-save-li" class="ui-field-contain">
+                                    <label id="slider-save-prompt" for="slider-save">Save Slot:</label>
+                                    <input name="slider-save" id="slider-save" data-highlight="true" type="range" min="1" max="10" value="1" data-theme="b" data-track-theme="b">
+                                </li>
+                                <li class="ui-field-contain">
+                                    <a id="button-save-story" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" href="javascript:_AMI.save_story()">Save</a>
+                                </li>
+                             </ul>
+                </div>
+
+                <div data-role="collapsible" data-collapsed="true">
+	                <h3 id="region_resume">Resume Story...</h3>
+	                         <ul data-role="listview" data-inset="true">
+                                <li id="slider-resume-li" class="ui-field-contain">
+                                    <label id="slider-resume-prompt" for="slider-resume">Save Slot:</label>
+                                    <input name="slider-resume" id="slider-resume" data-highlight="true" type="range" min="1" max="10" value="1" data-theme="b" data-track-theme="b">
+                                </li>
+                                <li class="ui-field-contain">
+                                    <a class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" href="javascript:_AMI.resume_story()">Resume</a>
+                                </li>
+                             </ul>
+                </div>
+
+	            <div data-role="collapsible" data-collapsed="true">
+	                <h3>Settings...</h3>
+	                <ul data-role="listview" data-inset="true">
+                        <li class="ui-field-contain" data-role="fieldcontain">
+                            <label for="sc_game_mode" class="select">Game Mode:</label>
+                            <select name="sc_game_mode" id="sc_game_mode">
+                                <option value="Scramble">Scramble</option>
+                                <option value="Read">Read</option>
+                                <option value="Type">Type</option>
+                                <option value="None">None</option>
+                            </select>
+                        </li>
+
+                        <li id="slider-audio-vol-li" class="ui-field-contain">
+                            <label for="slider-audio-vol">Audio Volume:</label>
+                            <input name="slider-audio-vol" id="slider-audio-vol" data-highlight="true" type="range" min="0" max="100" value="80" data-theme="b" data-track-theme="b">
+                        </li>
+                        <li id="slider-video-vol-li" class="ui-field-contain">
+                            <label for="slider-video-vol">Video Volume:</label>
+                            <input name="slider-video-vol" id="slider-video-vol" data-highlight="true" type="range" min="0" max="100" value="80" data-theme="b" data-track-theme="b">
+                        </li>
+                    </ul>
+	            </div>
+
+                <div>
+	                <ul data-role="listview" data-inset="true">
+                        <li class="ui-field-contain">
+                            <a id="button-exit" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" href="javascript:main_menu_exit()" data-rel="">Exit Menu</a>
+                        </li>
+                    </ul>
+	            </div>
+            </div>
+        </div>
+        </div>
+
+        <div id="story_continue" style="min-width:25em;" data-role="popup" data-history="false" data-theme="b" data-overlay-theme="b" data-dismissible="false">
+            <div data-role="header" data-theme="a">
+                <h1>Continue Story</h1>
+            </div>
+            <div class="ui-content" role="main">
+
+	                    <ul data-role="listview" data-inset="true">
+                                    <li class="ui-field-contain">
+                                        <a class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" href="javascript:_AMI.continue_story()">Yes</a>
+                                    </li>
+                                    <li class="ui-field-contain">
+                                        <a class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" href="javascript:_AMI.cancel_continue()">No</a>
+                                    </li>
+                        </ul>
+
+            </div>
+        </div>
+
+        <div id="story_signin" style="min-width:25em;" data-role="popup" data-history="false" data-theme="b" data-overlay-theme="b" data-dismissible="false">
+            <div data-role="header" data-theme="a">
+                <h1>Sign into AdventureMashup.com
+                </h1>
+            </div>
+            <div class="ui-content" role="main">
+                <ul data-role="listview" data-inset="true">
+                    <li class="ui-field-contain">
+                        <label for="email">Email:</label>
+                        <input type="text" name="email" id="email" value="" />
+                    </li>
+                    <li class="ui-field-contain">
+                        <label for="pass">Password:</label>
+                        <input type="password" name="pass" id="pass" value="" />
+                    </li>
+                    <li class="ui-field-contain">
+                        <a id="go" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" href="javascript:_AMI.signin()">Go</a>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+
+    </div>
+    <div id="video_size" class="background_div_video_size"></div>
+
+    <script type="text/javascript">
+        function getProtocol() {
+            var url = {};
+            var full_path = window.location.href.split("/");
+            url.protocol = full_path[0];
+
+            return url;
+        }
+
+        //helper functions
+        function getUrlParam(param) {
+            param += '=';
+
+            start = window.location.href.indexOf(param);
+            if (start >= 0) {
+                start += param.length;
+                end = window.location.href.indexOf('&', start);
+                if (end < 0) {
+                    end = window.location.href.length;
+                }
+
+                return window.location.href.substr(start, end - start);
+            } else {
+                return undefined;
+            }
+        }
+
+        var session_id = null;
+        var catalog_id = null;
+
+        if (store.get_local("_AM.session_id")) {
+            session_id = store.get_local("_AM.session_id");
+        }
+
+        /*if (c1) {
+            store.set_local("_AM.catalog_id", c1);
+        }*/
+
+        $(document).ready(
+                function () {
+                    if (!('__offline' in window) || !__offline) {
+                        if (!window._AMI_loaded) {
+                            $.get(_ajax_url_get_AMI,
+                            function (data) {
+                                if (data == "false") {
+                                    window.location.href = "index.html";
+                                } else {
+                                    window._AMI_loaded = true;
+                                    (new Function(data))();
+                                    //this is with in editor, either namespace the editor code or make it attach to window.
+                                    _AMI.initOnLoad();
+                                    $.get(_ajax_url_checksess + "/" + session_id,
+                                       function (data) {
+                                           if (data == "false") {
+                                               if (menu_displayed) {
+                                                   $("#story_main_menu").popup("close");
+                                                   $("#story_continue").popup("close");
+                                                   _AMI.show_sign_in();
+                                               } else {
+                                                   session_id = "";
+                                                   store.set_local("_AM.session_id", "");
+                                               }
+                                           }
+                                       });
+                                }
+                            });
+                        }
+                    } else {
+                        _AMI.initOnLoad();
+                        $.get(_ajax_url_checksess + "/" + session_id,
+                           function (data) {
+                               if (data == "false") {
+                                   if (menu_displayed) {
+                                       $("#story_main_menu").popup("close");
+                                       $("#story_continue").popup("close");
+                                       _AMI.show_sign_in();
+                                   } else {
+                                       session_id = "";
+                                       store.set_local("_AM.session_id", "");
+                                   }
+                               }
+                           });
+                    }
+                }
+            );
+    </script>    
+</body>
+</html>

@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<!--
+    Notes:
+    * Make sure when you select a display group name that all the images share the same start time for that group name.
+-->
+
+<html>
+<head>
+<title>Adventure Mashup Editor</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="www/css/openstory.css" />
+<link rel="stylesheet" href="www/css/openstory_editor.css" />
+<link rel="stylesheet" href="www/css/bootstrap.min.css" />
+<link rel="stylesheet" href="www/css/Site.css" />
+<script type="text/javascript" src="www/js/jquery/jquery-2.1.1.min.js" ></script> 
+<script type="text/javascript" src="www/js/storage_fallback.js" ></script>          
+<script type="text/javascript" src="www/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="www/js/openstory_global.js"></script>
+<script type="text/javascript" src="www/js/openstory_editor.js"></script>
+
+
+</head>
+<body>
+    <div>
+        <div id="p_bar" class="prop_bar">
+            <div class="prop_header">
+                <div class="navbar navbar-inverse">
+                    <ul id="object_nav" class="nav navbar-nav">
+                        <li><a href="" title="Search scene objects." onclick="_AME.show_object_search(); return false;"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></a></li>
+                        <li><a id="prop" title="Show properties." href="" onclick="_AME.show_prop(); return false;"><span class="glyphicon glyphicon-film" aria-hidden="true"></span></a></li>
+                        <li><a href="" title="Story settings." onclick="_AME.show_story_prop(); return false;"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span></a></li>
+                        <li><a id="save_list" title="Create a save list." href="" onclick="_AME.svg_copy(); return false;"><span class="glyphicon glyphicon-check" aria-hidden="true"></span></a></li>
+                        <li><a id="restore_list" title="Paste the save list." href="" onclick="_AME.svg_paste(); return false;"><span class="glyphicon glyphicon-share" aria-hidden="true"></span></a></li>
+                        <li><a id="play_pause1" title="Play/Pause active movie." href="" onclick="_AME.play_pause(); return false;"><span class="glyphicon glyphicon-play" aria-hidden="true"></span></a></li>
+                    </ul>
+                    <ul id="image_nav" class="nav navbar-nav" style="display:none;">
+                        <li><a href="" title="Search scene objects." onclick="_AME.show_object_search(); return false;"><span id="svg_back" class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span></a></li>
+                        <li><a id="save_scene1" title="Save selected image/text object and scene." href="" onclick="_AME.save_selected_scene(); return false;"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span></a></li>
+                        <li><a id="svg_pencil" title="Pencil tool." href="" onclick="_AME.svg_pencil(); return false;"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a></li>
+                        <li><a id="svg_pan" title="Pan tool" href="" onclick="_AME.svg_pan(); return false;"><span class="glyphicon glyphicon-move" aria-hidden="true"></span></a></li>
+                        <li><a id="svg_pan_reset" title="Reset the pan position (center view on movie)." href="" onclick="_AME.svg_pan_reset(); return false;"><span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span></a></li>
+                        <li><a id="svg_flip_horizontal" title="Flip Horizontally." href="" onclick="_AME.svg_flip_horizontal(); return false;"><span class="glyphicon glyphicon-road" aria-hidden="true"></span></a></li>
+                        <li><a id="svg_flip_vertical" title="Flip Vertically." href="" onclick="_AME.svg_flip_vertical(); return false;"><span class="glyphicon glyphicon-road rot" aria-hidden="true"></span></a></li>
+                        <li><a id="svg_rotate" title="Rotate." href="" onclick="_AME.svg_rotate(); return false;"><span class="glyphicon glyphicon-repeat" aria-hidden="true"></span></a></li>
+                        <li><a id="svg_scale" title="Scale." href="" onclick="_AME.svg_scale(); return false;"><span class="glyphicon glyphicon-resize-full" aria-hidden="true"></span></a></li>                                                
+                        <li><a id="play_pause2" title="Play/Pause active movie." href="" onclick="_AME.play_pause(); return false;"><span class="glyphicon glyphicon-play" aria-hidden="true"></span></a></li>
+                    </ul>
+                    <ul id="scene_nav" class="nav navbar-nav" style="display:none;">
+                        <li><a href="" title="Search scene objects." onclick="_AME.show_object_search(); return false;"><span id="svg_back" class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span></a></li>
+                        <li><a id="save_scene2" title="Save the current scene." href="" onclick="_AME.save_selected_scene(); return false;"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span></a></li>
+                        <li><a id="play_pause3" title="Play/Pause active movie." href="" onclick="_AME.play_pause(); return false;"><span class="glyphicon glyphicon-play" aria-hidden="true"></span></a></li>
+                    </ul>
+                    <ul id="story_nav" class="nav navbar-nav" style="display:none;">
+                        <li><a href="" title="Search scene objects." onclick="_AME.show_object_search(); return false;"><span id="svg_back" class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span></a></li>
+                        <li><a id="save_scene3" title="Save the story settings." href="" onclick="_AME.save_selected_scene(); return false;"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div id="object_search" class="show_prop">
+                <input id="obj_search" class="form-control form-search" type="text" /><a href="" onclick="_AME.get_objects($('#obj_search').val(), true, document.getElementById('object_results'), 'all_objects', _AME.cur_select, _AME.explorer_click_scene, _AME.explorer_click_image, true); return false;"><span class="glyphicon glyphicon-search" style="float:right; font-size:1.6em;" aria-hidden="true"></span></a>
+                <div id="object_results">
+
+                </div>
+                <a href="" onclick="_AME.add_scene_or_image(); return false;"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span></a>
+            </div>
+            <div id="story_prop" class="hide_prop">
+                <div class="disp-ig">
+                    <label class="control-label control-no-bold" for="img_image_group" title="Images/text that display together belong in the same group and must have the same start and end times.">Movie Size (px):</label>
+                    <div class="input-group">
+                        <div class="input-group-btn">
+                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></button>
+                            <ul id="movie_size" class="dropdown-menu dropdown-menu" role="menu">
+                                <li><a href="" onclick="_AME.set_screen_size('640x360'); return false;">640x360</a></li>
+                                <li><a href="" onclick="_AME.set_screen_size('854x480'); return false;">854x480</a></li>
+                                <li><a href="" onclick="_AME.set_screen_size('960x540'); return false;">960x540</a></li>
+                                <li><a href="" onclick="_AME.set_screen_size('1024x640'); return false;">1024x640</a></li>
+                                <li><a href="" onclick="_AME.set_screen_size('1280x720'); return false;">1280x720</a></li>
+                                <li><a href="" onclick="_AME.set_screen_size('1600x900'); return false;">1600x900</a></li>
+                                <li><a href="" onclick="_AME.set_screen_size('1920x1080'); return false;">1920x1080</a></li>
+                                <li><a href="" onclick="_AME.set_screen_size('2048x1152'); return false;">2048x1152</a></li>
+                                <li><a href="" onclick="_AME.set_screen_size('2560x1440'); return false;">2560x1440</a></li>
+                                <li><a href="" onclick="_AME.set_screen_size('3200x1800'); return false;">3200x1800</a></li>
+                            </ul>
+                        </div><!-- /btn-group -->
+                        <input id="story_movie_size" type="text" class="form-control" aria-label="...">
+                    </div>
+                </div>
+                <div class="disp-ig" style="display:none;"><label class="control-label control-no-bold" for="story_width" title="All movies must be the same width, this is the width of all the movies in pixels.">Width:</label><input id="story_width" class="form-control" type="number" /></div>
+                <div class="disp-ig" style="display:none;"><label class="control-label control-no-bold" for="story_height" title="All movies must be the same height, this is the height of all the movies in pixels.">Height:</label><input id="story_height" class="form-control" type="number" /></div>
+                <div class="disp-ig"><label class="control-label control-no-bold" for="story_font_size" title="The size of the text displayed in the movies in pixels.">Font Size (px):</label><input id="story_font_size" class="form-control" type="number" /></div>
+                <div class="disp-ig"><label class="control-label control-no-bold" title="The CSS file containing the 'look' of text and images in the movies. If no changes from 'standard' you can just upload sample_svg.css">CSS file:</label><input id="css_file" class="form-control" type="file" /></div>
+            </div>
+            <div id="scene_prop" class="hide_prop">
+                <div class="disp-ig">
+                    <label class="control-label control-no-bold" for="scene_name" title="Globally unique name for the scene">Name:</label><input id="scene_name" class="form-control" type="text" />
+                </div>
+                <div class="disp-ig">
+                    <label class="control-label control-no-bold" for="scene_start_time" title="Default start time of the scene, all movies must have 5 seconds of lead in time.">Start Time:</label><input id="scene_start_time" class="form-control" type="number" />
+                </div>
+                <div class="disp-ig">
+                    <label class="control-label control-no-bold" for="scene_end_time" title="Default end time of the scene, all movies must have 5 seconds of lead out time.">End Time:</label><input id="scene_end_time" class="form-control" type="number" />
+                </div>
+                <div class="disp-ig">
+                    <label class="control-label control-no-bold" for="scene_loop_until" title="Each scene is assumed to have a loop section, when the 'End Loop Time' is reached in the movie it will jump to the position of 'Start Loop Time''.">End Loop Time:</label><input id="scene_loop_until" class="form-control" type="number" />
+                </div>
+                <div class="disp-ig">
+                    <label class="control-label control-no-bold" for="scene_loop_goto" title="The start time position in the movie of the loop section.">Start Loop Time:</label><input id="scene_loop_goto" class="form-control" type="number" />
+                </div>
+                <div class="disp-ig">
+                    <label class="control-label control-no-bold" for="scene_video_src" title="The name of the movie file found in www\video1 folder, unfortunately security prevents browsing.">Video Src:</label><input id="scene_video_src" class="form-control" type="text" />
+                </div>
+                                    <!-- Precache Scenes:<textarea id="scene_precache"></textarea><br /> -->
+                <div class="disp-ig">
+                    <input id="scene_loop_fade" class="form-control form-control-checkbox" type="checkbox" /><label class="control-label control-no-bold" for="scene_loop_fade" title="Transition behavior when the movie performs the loop, should it fade (checked) or be instant (not checked)">Loop fade</label>
+                </div>
+                <div class="disp-ig">
+                    <input id="scene_scene_fade" class="form-control form-control-checkbox" type="checkbox" /><label class="control-label control-no-bold" for="scene_scene_fade" title="Default transition behavior when changing to this scene, should it fade (checked) or be instant (not checked). Not selected for most cut scenes.">Scene fade</label>
+                </div>
+                <div class="disp-ig">
+                    <label class="control-label control-no-bold" for="default_scene_image_group" title="The default selected image, forces no loop to occur and progress to next scene specified in image.">Default Image Selection:</label>
+                    <div class="input-group">
+                        <div class="input-group-btn">
+                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></button>
+                            <ul id="default_scene_image_group" class="dropdown-menu dropdown-menu" role="menu">
+                                
+                            </ul>
+                        </div><!-- /btn-group -->
+                        <input id="default_scene_image" type="text" class="form-control" aria-label="...">
+                    </div>
+                </div>
+                <div class="disp-ig">
+                    <label class="control-label control-no-bold" for="scene_auto_func" title="Javascript code to be executed if a decision is not made at the time the movie would loop back. Can force the choice of the next scene.">On auto func:</label><textarea id="scene_auto_func" class="form-control"></textarea>
+                </div>
+                <div class="disp-ig">
+                    <label class="control-label control-no-bold" for="scene_show_func" title="Javascript code to be executed once this scene becomes active. This could be used to set properties to track important scenes.">On show func:</label><textarea id="scene_show_func" class="form-control"></textarea>
+                </div>
+                <div class="disp-ig">
+                    <label class="control-label control-no-bold" for="scene_hide_func" title="Javascript code to be executed when the scene has transitioned to a new scene.">On hide func:</label><textarea id="scene_hide_func" class="form-control"></textarea>
+                </div>
+                <div class="disp-ig">
+                    <label class="control-label control-no-bold" for="scene_comm_bar_func" title="Javascript code to process commands for this scene entered from the command bar.">Command bar func:</label><textarea id="scene_comm_bar_func" class="form-control"></textarea>
+                </div>
+                <div class="disp-ig">
+                    <input id="end_scene" class="form-control form-control-checkbox" type="checkbox" /><label class="control-label control-no-bold" for="end_scene" title="Is this the last scene in the story (The End), forces movie play through once and no loop section.">End Story</label>
+                </div>
+                <a id="set_first_scene" title="Set this scene as the opening or first scene of the entire story." href="" onclick="_AME.set_first_scene(_AME.cur_select.scene_obj); return false;">Set as first scene</a>
+            </div>
+            <div id="image_prop" class="hide_prop">
+                <div class="disp-ig">
+                    <label class="control-label control-no-bold" for="img_title" title="Globally unique name in the story for the image/text">Title:</label><input id="img_title" class="form-control" type="text" />
+                </div>
+                <div class="disp-ig">
+                    <label class="control-label control-no-bold" for="img_image_group" title="Images/text that display together belong in the same group and must have the same start and end times.">Image Group:</label>
+                    <div class="input-group">                                                
+                        <div class="input-group-btn">
+                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></button>
+                            <ul id="image_group1" class="dropdown-menu dropdown-menu" role="menu">
+                                <li><a href="#">Action</a></li>
+                                <li><a href="#">Another action</a></li>
+                                <li><a href="#">Something else here</a></li>
+                            </ul>                            
+                        </div><!-- /btn-group -->
+                        <input id="img_image_group" type="text" class="form-control" aria-label="...">
+                    </div>
+                </div>
+                <div class="disp-ig">
+                    <label class="control-label control-no-bold" for="img_needed" title="Any prerequisite properties that must be set before this image/text can be displayed. The required format is a comma seperated list of itemname:quantity, example: sword:1,apple:2. An advanced version is also available that takes the form of (itemname1>=quantity and (itemname2<=quantity or itemname1==itemname2 or itemname3 == 'sword')).">Needed:</label><textarea id="img_needed" class="form-control"></textarea>
+                </div>
+                <div class="disp-ig">
+                    <label class="control-label control-no-bold" for="img_start_time" title="The time in the movie when this image/text is displayed. All image/text objects in the same group must have the same start and end time.">Start Time:</label><input id="img_start_time" class="form-control" type="number" />
+                </div>
+                <div class="disp-ig">
+                    <label class="control-label control-no-bold" for="img_end_time" title="The time in the movie when this image/text is hidden. All image/text objects in the same group must have the same start and end time.">End Time:</label><input id="img_end_time" class="form-control" type="number" />
+                </div>
+                <div class="disp-ig">
+                    <label class="control-label control-no-bold" for="img_image_src" title="The name of the image file found in the www/image folder, unfortunately security prevents browsing.">Image Src:</label><input id="img_image_src" class="form-control" type="text" />
+                </div>
+                <div class="disp-ig">
+                    <label class="control-label control-no-bold" for="img_width" title="The width in pixels of the image specified in the 'Image Src' field.">Width:</label><input id="img_width" class="form-control" type="number" />
+                </div>
+                <div class="disp-ig">
+                    <label class="control-label control-no-bold" for="img_height" title="The height in pixels of the image specified in the 'Image Src' field.">Height:</label><input id="img_height" class="form-control" type="number" />
+                </div>
+                <div class="disp-ig">
+                    <label class="control-label control-no-bold" for="img_name_of_person" title="The name of the character in the story that will read this text. This must match the folder name with in www/audio/[character name]/ for where the audio is stored that matches the text.">Name of Person:</label><input id="img_name_of_person" class="form-control" type="text" />
+                </div>
+                <div class="disp-ig">
+                    <label class="control-label control-no-bold" for="img_sentence" title="The text to be displayed.">Sentence:</label><textarea id="img_sentence" class="form-control" wrap="off"></textarea>
+                </div>
+                <div class="disp-ig">
+                    <label class="control-label control-no-bold" for="img_disp_lines" title="How many lines of the sentence to be displayed at a time.">Display Lines:</label><input id="img_disp_lines" type="number" class="form-control" />
+                </div>
+                                                        <!-- Clip Box:<input id="img_clip_box" type="text" />-->
+                <div class="disp-ig">
+                    <label class="control-label control-no-bold" for="img_animate_shape_class" title="The prefix of the CSS classes to use for this image/text object.">SVG Shape Class:</label><input id="img_animate_shape_class" type="text" class="form-control" />
+                </div>    
+                <div class="disp-ig">
+                    <input id="img_show_points" type="checkbox" checked="checked" class="form-control form-control-checkbox" /><label class="control-label control-no-bold" title="Display none control points in the path object.">Points</label>
+                </div>
+                <div class="disp-ig">
+                    <input id="img_show_ctrl_points" type="checkbox" checked="checked" class="form-control form-control-checkbox" /><label class="control-label control-no-bold" title="Display control points in the path object.">Ctrl Points</label>
+                </div>
+                <div class="disp-ig">
+                    <input id="img_show_handle_point" type="checkbox" checked="checked" class="form-control form-control-checkbox" /><label class="control-label control-no-bold" title="Display none control points in the path object.">Handle Points</label>
+                </div> 
+                <div class="disp-ig">
+                    <label class="control-label control-no-bold" for="img_disp_lines" title="List of time frames for the animation of the path object. The zero time starts the count from the start time of this image/object. The pencil tool must be used in the first time frame, the number of control points cannot vary between frames.">Time Frames:</label>                    
+                    <div id="time_select">
+
+                    </div>
+                    <a href="" onclick="_AME.add_time_frame(); return false;" title="Add another time frame at the current position in the movie. Move the position in the movie first, then click add."><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span></a>                                       
+                    <br />
+                    <textarea id="img_animate_shape" class="form-control" style="display:none;"></textarea>
+                  
+                </div>
+
+                <div class="disp-ig">
+                    <label class="control-label control-no-bold" for="img_revealed_idx" title="Number of words to display when this image/text is displayed. If the number is less than the total number of words in the sentence then in scramble mode these words have to be completed before this sentence can be selected."># of words revealed:</label><input id="img_revealed_idx" class="form-control" type="number" />
+                </div>
+                <div class="disp-ig">
+                    <input id="img_is_scramble" class="form-control form-control-checkbox" type="checkbox" /><label class="control-label control-no-bold" for="img_is_scramble" title="(Checked) if this sentence is specifically for selecting words to complete other sentences, otherwise (unchecked)">Is Scramble</label>
+                </div>
+
+                <div class="disp-ig">
+                    <input id="img_loop_animate" class="form-control form-control-checkbox" type="checkbox" /><label class="control-label control-no-bold" for="img_loop_animate" title="(Checked) if the path animation should just infinite loop, otherwise (unchecked)">Loop Animation</label>
+                </div>
+
+                <div class="disp-ig">
+                    <input id="img_can_select" class="form-control form-control-checkbox" type="checkbox" /><label class="control-label control-no-bold" for="img_can_select" title="(Checked) if this image/text object is clickable/selectable/decision, otherwise (unchecked)">Is Selectable</label>
+                </div>
+                <div class="disp-ig">
+                    <label class="control-label control-no-bold" for="img_next_image_group" title="Normally used to create sub-menu's, group name for another set of image/text objects to be displayed that are not normaly displayed by timing.">Next Image Group:</label>
+                    <div class="input-group">                        
+                        <div class="input-group-btn">
+                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></button>                            
+                            <ul id="image_group2" class="dropdown-menu dropdown-menu" role="menu">
+                                <li><a href="#">Action2</a></li>
+                                <li><a href="#">Another action2</a></li>
+                                <li><a href="#">Something else here2</a></li>
+                            </ul>                                                        
+                        </div><!-- /btn-group -->
+                        <input id="img_next_image_group" type="text" class="form-control" aria-label="...">
+                    </div>
+
+                </div>
+                <div class="disp-ig">
+                    <label class="control-label control-no-bold" for="img_hide_image_groups" title="Comma seperated list of image groups to hide when this image is selected..">Hide Image Groups:</label>
+                    <textarea id="img_hide_image_groups" class="form-control" wrap="off"></textarea>
+                </div>
+
+                <div class="disp-ig">
+                    <label class="control-label control-no-bold" for="scene_search" title="Select the scene that the current scene will transition to if this image/text object is selected.">Next Scene:</label>
+                    <div id="img_scene_search" class="show_img_scene_prop">
+                        <input id="scene_search" class="form-control form-search2" type="text" /><a href="" onclick="_AME.get_objects($('#scene_search').val(), false, document.getElementById('img_scene_results'), 'img_scene_objects', _AME.cur_img_scene_select, _AME.image_prop_click_scene, null); return false;"><span class="glyphicon glyphicon-search" style="float:right; font-size:1.6em;" aria-hidden="true"></span></a>
+                        <div id="img_scene_results">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="disp-ig">
+                    <label class="control-label control-no-bold" for="img_change_from" title="Time in the current movie that the transition to the next scene movie will occur at. If a time of 0 is specified it will do a cut scene transition.">From Time:</label><input id="img_change_from" class="form-control" type="number" />
+                </div>
+                <div class="disp-ig">
+                    <label class="control-label control-no-bold" for="img_change_to" title="Time in the next scenes movie to start at.">To Time:</label><input id="img_change_to" class="form-control" type="number" />
+                </div>
+                <div class="disp-ig" style="display:none;">
+                    <label class="control-label control-no-bold" for="img_scale_to_scene">Scale to scene:</label><input id="img_scale_to_scene" class="form-control" type="number" />
+                </div>
+                <div class="disp-ig" style="display:none;">
+                    <label class="control-label control-no-bold" for="img_offset_x_next_scene">Offset x:</label><input id="img_offset_x_next_scene" class="form-control" type="number" />
+                </div>
+                <div class="disp-ig" style="display:none;">
+                    <label class="control-label control-no-bold" for="img_offset_y_next_scene">Offset y:</label><input id="img_offset_y_next_scene" class="form-control" type="number" />
+                </div>
+                <div class="disp-ig">
+                    <label class="control-label control-no-bold" for="img_show_sound" title="The filename of the sound effect to play when displayed.">On show sound effect:</label><input id="img_show_sound" class="form-control" type="text" />
+                </div>
+                <div class="disp-ig">
+                    <label class="control-label control-no-bold" for="img_show_func" title="Javascript code to be executed when the image/text object is first displayed.">On show func:</label><textarea id="img_show_func" class="form-control"></textarea>
+                </div>
+                <div class="disp-ig">
+                    <input id="img_pause_while_wait" class="form-control form-control-checkbox" type="checkbox" /><label class="control-label control-no-bold" for="img_pause_while_wait" title="(Checked) if you want the movie to pause when the image/text object is displayed, otherwise (unchecked). Might be used when a thought bubble is displayed as opposed to a speech bubble.">Pause scene</label>
+                </div>
+                <div class="disp-ig">
+                    <label class="control-label control-no-bold" for="img_select_sound" title="The filename of the sound effect to play when selected.">On select sound effect:</label><input id="img_select_sound" class="form-control" type="text" />
+                </div>
+                <div class="disp-ig">
+                    <label class="control-label control-no-bold" for="img_select_func" title="Javascript code to be executed when the image/text object is chosen.">On select func:</label><textarea id="img_select_func" class="form-control"></textarea>
+                </div>
+                <div class="disp-ig">
+                    <label class="control-label control-no-bold" for="img_prop_bag" title="Any items/properties that get set when this image/text is selected. The required format is a comma seperated list of itemname:quantity, example: sword:1,apple:2. An advanced version is also available that takes the form of itemname1+=5; itemname2-=10; itemname3=itemname4; itemname5='stringtext'.">Prop bag:</label><textarea id="img_prop_bag" class="form-control"></textarea>
+                </div>
+                <div class="disp-ig">
+                    <label class="control-label control-no-bold" for="img_prop_bag_scene_change" title="Any items/properties that get set when the scene changes because this image/text is selected. The required format is a comma seperated list of itemname:quantity, example: sword:1,apple:2. An advanced version is also available that takes the form of itemname1+=5; itemname2-=10; itemname3=itemname4; itemname5='stringtext'.">Prop bag on scene change:</label><textarea id="img_prop_bag_scene_change" class="form-control"></textarea>
+                </div>
+                
+                <div class="disp-ig">
+                    <label class="control-label control-no-bold" for="img_karma" title="Integer value representing how much of a positive or negative change in Karma occurs if this image/object is chosen.">Karma:</label><input id="img_karma" class="form-control" type="number" />
+                </div>
+                <div class="disp-ig">
+                    <input id="img_hide_all_images" class="form-control form-control-checkbox" type="checkbox" /><label class="control-label control-no-bold" for="img_hide_all_images" title="(Checked) if you want all text/objects in this scene to be hidden when this text/object is chosen, (unchecked) otherwise.">Hide all images</label>
+                </div>
+                <div class="disp-ig">
+                    <input id="img_done_waiting" class="form-control form-control-checkbox" type="checkbox" title="(Checked) if you want the movie to resume playing when this image/text object is chosen, (unchecked) otherwise. Used to resume play after a thought bubble is chosen." /><label class="control-label control-no-bold" for="img_done_waiting">Unpause scene</label>
+                </div>
+                <div class="disp-ig">
+                    <label class="control-label control-no-bold" for="img_hide_func" title="Javascript code to be executed when this image/text object is hidden from the display.">On hide func:</label><textarea id="img_hide_func" class="form-control"></textarea>
+                </div>      
+            </div>
+        </div>
+        <div id="divider" class="div_divider">
+        </div>
+        <div id="story" class="div_canvas_area">
+            <div class="div_story_video_controls">
+                <div id="pos_bar" class="range_show">
+                    <input id="position" class="range_prog" type="range" min="0" max="100" />
+                    <input id="tposition" class="form-control range_time" type="number" />
+                </div>
+                <div id="range_from_bar" class="range_show">
+                    <input id="range_from" class="range_prog" type="range" min="0" max="100" />
+                    <input id="trange_from" class="form-control range_time" type="number" />
+                </div>
+                <div id="range_to_bar" class="range_show">
+                    <input id="range_to" class="range_prog" type="range" min="0" max="100" />
+                    <input id="trange_to" class="form-control range_time" type="number" />
+                </div>
+            </div>
+        </div>
+        <div id="working" class="working_holder_hide">
+            <div class="working">
+            </div>
+        </div>
+    
+    <script type="text/javascript">    
+
+    function getProtocol() {
+        var url = {};
+        var full_path = window.location.href.split("/");
+        url.protocol = full_path[0];
+
+        return url;
+    }
+
+    //helper functions
+    function getUrlParam(param) {
+        param += '=';
+
+        start = window.location.href.indexOf(param);
+        if (start >= 0) {
+            start += param.length;
+            end = window.location.href.indexOf('&', start);
+            if (end < 0) {
+                end = window.location.href.length;
+            }
+
+            return window.location.href.substr(start, end - start);
+        } else {
+            return undefined;
+        }
+    }
+
+    var session_id = null;
+    var catalog_id = null;
+
+    if (store.get_local("_AM.session_id")) {
+        session_id = store.get_local("_AM.session_id");
+    }
+
+    //comes from global.
+    if (c1) {        
+        catalog_id = c1;
+    }
+
+    $(document).ready(
+        function () {
+            if (!('__offline' in window) || !__offline) {
+                if (!window._AME_loaded) {
+                    $.get(_ajax_url_precache + "/" + g1 + "/" + session_id + "/" + g4,
+                    function (data) {
+                        if (data == "false") {
+                            window.location.href = "index.html";
+                        } else {
+                            window._AME_loaded = true;
+                            (new Function(data))();
+                            //this is with in editor, either namespace the editor code or make it attach to window.
+                            _AME.initOnLoad();
+                        }
+                    });
+                }
+            } else {
+                _AME.initOnLoad();
+            }
+        }         
+    );
+    </script>      
+    </div>  
+</body>
+</html>
