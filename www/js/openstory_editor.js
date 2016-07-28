@@ -2513,7 +2513,7 @@ function convert_to_array(images) {
 
 function save_scene(s) {
     //maybe add session number here etc.
-    s.array_images = convert_to_array(s.images);
+    //s.array_images = convert_to_array(s.images);
 
     show_working();
     $.ajax({

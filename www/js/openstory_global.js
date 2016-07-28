@@ -26,6 +26,7 @@ var g5 = "904c1eab-872d-4325-9886-f8387ec0e05e";
 var _story_name = "_071a9cdf_fda2_49ad_8af2_ea6eb8cc03b1_story_";
 var _story_name_settings = "_071a9cdf_fda2_49ad_8af2_ea6eb8cc03b1_story_settings_";
 var _ajax_url_write_scene_mongo = _remote_domain_mongo + "api/write_scene";
+var _ajax_url_read_scene_mongo = _remote_domain_mongo + "api/read_scene";
 
 var _AM_css_file=document.createElement("link")
 _AM_css_file.setAttribute("rel", "stylesheet")
