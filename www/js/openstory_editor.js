@@ -1224,7 +1224,7 @@ _AME.get_objects = function get_objects(search_filter, inc_images, where, res, s
                         item.video_src2 = _AM.video_path_2 + item.video_src;
                         item.video_src2_is_precached = false;
 
-                        item.precache_scenes_array = null;
+                        item.precache_scenes = null;
                         item.is_scenes_precached = false;
 
                         item.next_scene_time_precache = item.end_time - (_AM.scene_cache_video_time + _AM.scene_sync_video_time);
@@ -2549,7 +2549,7 @@ function save_scene(s) {
         type: "PUT",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
-        url: _ajax_url_write_scene_mongo + "/" + c1 + "/" + session_id + "/",
+        url: _ajax_url_write_scene_mongo + "/" + c1,
         data: JSON.stringify(s),
         scene_obj: s,
         success: function (data) {
