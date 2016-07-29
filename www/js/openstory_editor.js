@@ -2544,12 +2544,13 @@ function save_scene(s) {
         }
     });
 
-    s._id = s.uidGroup;
+
+    s._id = s.uidGroup.replace(/-/g,'');
     $.ajax({
         type: "PUT",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
-        url: _ajax_url_write_scene_mongo + "/" + c1,
+        url: _ajax_url_write_scene_mongo + "/" + c1 + "/" + s._id,
         data: JSON.stringify(s),
         scene_obj: s,
         success: function (data) {
