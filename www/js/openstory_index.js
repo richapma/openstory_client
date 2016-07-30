@@ -32,12 +32,13 @@ $(window).resize(window_resize);
 _AMI.show_sign_in = function show_sign_in() {
     which_menu = "continue";
     menu_displayed = true;
-    session_id = "";
+    /*session_id = "";
     store.set_local("_AM.session_id", session_id);
     if (_AM) {
         _AM.pause_scene();
     }
     $("#story_signin").popup("open");
+    */
 }
 
 _AMI.save_story_settings = function save_story_settings(){
@@ -378,8 +379,8 @@ function getAdventure_Mashup() {
                 readyCheck();
             }
         } else {
-            if (!_AM_loaded) {
-                $.get(_ajax_url_precache + "/" + g1 + "/" + session_id + "/" + g2,
+            /*if (!_AM_loaded) {
+                $.get(_ajax_url_precache + "/" + g1 + "/" + g2,
                 function (data) {
                     if (data == "false") {
                         _AMI.show_sign_in();
@@ -392,7 +393,7 @@ function getAdventure_Mashup() {
             } else {
                 __ready++;
                 readyCheck();
-            }
+            }*/
         }
 
         //setTimeout(function () { readyCheck(); }, 1000);
@@ -544,7 +545,7 @@ function resume_slot_change(event) {
 
 //menu functions.
 _AMI.continue_story = function continue_story() {
-    _AM.session_id = session_id;
+    //_AM.session_id = session_id;
     _AM.init_defaults(_AMI.catalog.width, _AMI.catalog.height, _AMI.catalog.fontSize, f1);
     restore_menu_settings();
     _AM.reset_AM();
@@ -651,7 +652,7 @@ _AMI.cancel_continue = function cancel_continue() {
 }
 
 _AMI.new_story = function new_story() {
-    _AM.session_id = session_id;
+    //_AM.session_id = session_id;
     _AM.init_defaults(_AMI.catalog.width, _AMI.catalog.height, _AMI.catalog.fontSize, f1);
     restore_menu_settings();
     _AM.reset_AM();
@@ -703,7 +704,7 @@ _AMI.resume_story = function resume_story() {
         window._story_settings["save_slot"] = slider_value;
         window._story_settings["auto_save"] = 0;        
 
-        _AM.session_id = session_id;
+        //_AM.session_id = session_id;
         _AM.init_defaults(_AMI.catalog.width, _AMI.catalog.height, _AMI.catalog.fontSize, f1);
         //save story settings is in here.
         restore_menu_settings();
