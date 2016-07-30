@@ -254,14 +254,15 @@ function wireup() {
         //resume from auto save.
         //var trying = setInterval(function () { if (_AM.ready) { clearInterval(trying); $("#story_continue").popup("open"); } }, 250);
         which_menu = "continue";
-        if (store.get_local("_AM.session_id")) {
+        getAdventure_Mashup();
+        /*if (store.get_local("_AM.session_id")) {
             session_id = store.get_local("_AM.session_id");
             getAdventure_Mashup();
             //$("#story_continue").popup("open");
         } else {
             menu_displayed = true;
             $("#story_signin").popup("open");
-        }
+        }*/
         //$("#story").removeClass("background_div_landing");
     }else{
         //var trying = setInterval(function () { if (_AM.ready) { clearInterval(trying); $("#story_main_menu").popup("open"); } }, 250);
@@ -291,13 +292,14 @@ function wireup() {
         $(document).on('click', function () {
             $(this).off('click'); $(start_div).stop(); $(start_div).remove();
             //$("#story").removeClass("background_div_landing");
-            if (session_id) {
+            getAdventure_Mashup();
+            /*if (session_id) {
                 getAdventure_Mashup();
                 //$("#story_main_menu").popup("open");
             } else {
                 menu_displayed = true;
                 $("#story_signin").popup("open");
-            }
+            }*/
         });
     } 
 }
@@ -637,13 +639,14 @@ _AMI.cancel_continue = function cancel_continue() {
     $(document).on('click', function () {
         $(this).off('click'); $(start_div).stop(); $(start_div).remove();
         //$("#story").removeClass("background_div_landing");
-        if (session_id) {
+        getAdventure_Mashup();
+        /*if (session_id) {
             getAdventure_Mashup();
             //$("#story_main_menu").popup("open");
         } else {
             menu_displayed = true;
             $("#story_signin").popup("open");
-        }
+        }*/
     });
 }
 
