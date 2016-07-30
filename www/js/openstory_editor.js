@@ -113,7 +113,9 @@ _AME.initOnLoad = function initOnLoad() {
         __dependency++;
     });
 
-    $.get(_ajax_url_precache + "/" + g1 + "/" + session_id + "/" + g3,
+    __dependency++;
+/*
+    $.get(_ajax_url_read_scene_mongo + "/" + g1 + "/" + g3,
     function (data) {
         if (data == "false") {
             window.location.href = "index.html";
@@ -122,9 +124,10 @@ _AME.initOnLoad = function initOnLoad() {
             __dependency++;          
         }
     });
+*/
 
     //get first scene
-    $.get(_ajax_url_firstscene + "/" + c1,
+    $.get(_ajax_url_read_firstscene_mongo + "/" + c1,
     function (data) {
         (new Function(data))();
         __dependency++;
@@ -132,26 +135,23 @@ _AME.initOnLoad = function initOnLoad() {
 
 
     //get story_settings.
-    session_id = store.get_local("_AM.session_id"); //set session id.           
-    if (session_id) {
-        $.ajax({
-            type: "GET",
-            url: _ajax_url_store_get + "/" + c1 + "/" + session_id + "/" + _story_name_settings,
-            success: function (data) {
-                if (data != 'false') {
-                    //get all saved menu settings.
-                    window._story_settings = JSON.parse(data);
-                }
-                __dependency++;
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                alert('[loading settings] Connection to server has failed.\nPlease try reloading the page.');
-                __dependency++;
+    //session_id = store.get_local("_AM.session_id"); //set session id.           
+    //if (session_id) {
+    $.ajax({
+        type: "GET",
+        url: _ajax_url_read_store_mongo + "/" + c1 + "/" + _story_name_settings,
+        success: function (data) {
+            if (data != 'false') {
+                //get all saved menu settings.
+                window._story_settings = JSON.parse(data);
             }
-        });
-    } else {
-        __dependency++;
-    }
+            __dependency++;
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert('[loading settings] Connection to server has failed.\nPlease try reloading the page.');
+            __dependency++;
+        }
+    });
 
     setTimeout(function () { dep_check(); }, 1000);
 }
@@ -2566,7 +2566,7 @@ function save_scene(s) {
 _AME.set_first_scene = function set_first_scene(s) {
     //maybe add session number here etc.
     //s.array_images = convert_to_array(s.images);
-    $.get(_ajax_url_set_first_scene + "/" + c1 + "/" + session_id + "/" + s.uidGroup,
+    $.get(_ajax_url_write_firstscene_mongo + "/" + c1 + "/" + s.uidGroup,
     function (data) {
         //result of operation.
         //get_objects($('#obj_search').val(), true, document.getElementById('object_results'), 'all_objects', _AME.cur_select, _AME.explorer_click_scene, _AME.explorer_click_image);
@@ -2594,7 +2594,7 @@ function save_global_prop() {
         type: "POST",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
-        url: _ajax_url_save_globalvars + "/" + c1 + "/" + session_id + "/",
+        url: _ajax_url_save_globalvars + "/" + c1,
         data: JSON.stringify(s),
         scene_obj: s,
         success: function (data) {

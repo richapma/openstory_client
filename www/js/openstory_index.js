@@ -41,7 +41,7 @@ _AMI.show_sign_in = function show_sign_in() {
 }
 
 _AMI.save_story_settings = function save_story_settings(){
-    store.set(_AM.session_id, _story_name_settings, JSON.stringify(window._story_settings));
+    store.set(_story_name_settings, JSON.stringify(window._story_settings));
 }
 
 function wireup() {    
@@ -322,18 +322,17 @@ _AMI.initOnLoad = function initOnLoad() {
     });
 
     //get first scene
-    $.get(_ajax_url_firstscene + "/" + c1,
+    $.get(_ajax_url_read_firstscene_mongo + "/" + c1,
     function (data) {
         (new Function(data))();
         __dependency++;
     });
 
     //get story_settings.
-    session_id = store.get_local("_AM.session_id"); //set session id.           
-    if (session_id) {
+   
         $.ajax({
             type: "GET",
-            url: _ajax_url_store_get + "/" + c1 + "/" + session_id + "/" + _story_name_settings,
+            url: _ajax_url_read_store_mongo + "/" + c1 + "/" + _story_name_settings,
             success: function (data) {
                 if (data != 'false') {
                     //get all saved menu settings.
@@ -346,9 +345,7 @@ _AMI.initOnLoad = function initOnLoad() {
                 __dependency++;
             }
         });
-    } else {
-        __dependency++;
-    }
+
     setTimeout(function () { dep_check(); }, 1000);
 }
 
@@ -455,18 +452,9 @@ function readyCheck() {
 }
 
 _AMI.signin = function signin() {
-    //$('#' + label_id).text("Save Slot: Empty");  
-    $('#go').text('Checking...');
-    $('#go').attr('href', '#');
-    $.get(_ajax_url_newsess + "/" + document.getElementById('email').value + "/" + document.getElementById('pass').value, function (data) {
-        if (data != 'false') {
-            //signed in. 
-            session_id = data;
-            store.set_local("_AM.session_id", session_id); //set session id.           
-
-            $.ajax({
+    $.ajax({
                 type:"GET",
-                url:_ajax_url_store_get + "/" + c1 + "/" + session_id + "/" + _story_name_settings, 
+                url:_ajax_url_read_store_mongo + "/" + c1 + "/" + _story_name_settings, 
                 success: function (data) {
                                         if (data != 'false') {
                                             //get all saved menu settings.
@@ -487,18 +475,6 @@ _AMI.signin = function signin() {
                     alert('[loading settings] Connection to server has failed.\nPlease try reloading the page.');                
                 }
                 });
-        } else {
-            setTimeout(function () {
-                $('#go').attr('href', 'javascript:_AMI.signin()');
-                $('#go').text('Go');
-                session_id = "";
-                store.set_local("_AM.session_id", session_id);
-                $('#email').val('');
-                $('#pass').val('');
-            }, 3000);
-            //$("#story_signin").popup("open");
-        }
-    });
 }
 
 function restore_menu_settings() {

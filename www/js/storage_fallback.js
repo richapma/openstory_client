@@ -21,33 +21,22 @@
         }
     },
 
-    set: function(session,name,data) {
-        
-        /*var date = new Date();
-        date.setTime(2144448000000);
-
-        var expires = "expires="+date.toGMTString();
-        
-        if( this.localStoreSupport() ) {
-            localStorage.setItem(name, value);
-        }
-        else {
-            document.cookie = name+"="+value+";"+expires+"; path=/";
-        }*/
+    set: function(key,data) {
+        console.log(key);
+        console.log(data);
         var dpack = {}
         dpack.catalog = c1;
-        dpack.session = session;
-        dpack.name =name;               
-        dpack.value = data;        
+        dpack.key = key;               
+        dpack.data = data;        
 
-        if (typeof session !== "undefined" && typeof name !== "undefined" && typeof data !== "undefined") {
-            if (session != null && name != null && data != null && session != "" && name != "" && data != "") {
+        if (typeof key !== "undefined" && typeof data !== "undefined") {
+            if (key != null && data != null && key != "" && data != "") {
                 $.ajax({
                     
-                    type: "POST",
+                    type: "PUT",
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
-                    url: _ajax_url_store_set,
+                    url: _ajax_url_write_store_mongo,
                     data: JSON.stringify(dpack),                   
 
                     error: function (jqXHR, textStatus, errorThrown) {
@@ -95,11 +84,11 @@
         }
     },
 
-    get: function (session, name, succ_func, fail_func) {
+    get: function (key, succ_func, fail_func) {
 
         $.ajax({
             type: "GET",
-            url: _ajax_url_store_get + "/" + c1 + "/" + session + "/" + name,
+            url: _ajax_url_read_store_mongo + "/" + c1 + "/" + key,
             sfunc: succ_func,
             ffunc: fail_func,
             success: function (data) {
@@ -148,26 +137,4 @@
             return null;
         }*/
     },
-
-    del: function (session, name) {
-        $.ajax({
-            type: "PUT",
-            url: _ajax_url_store_del + "/" + c1 + "/" + session + "/" + name,
-
-            error: function (jqXHR, textStatus, errorThrown) {
-                //alert('[store_del] Connection to server has failed.\nPlease try reloading the page.');
-                /*console.log(textStatus);
-                console.log(errorThrown);
-                console.log(jqXHR);*/
-            }
-        });
-
-        /*if( this.localStoreSupport() ) {
-            localStorage.removeItem(name);
-        }
-        else {
-            this.set(name,"",-1);
-        }*/
-
-    }
 }

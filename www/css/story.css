@@ -1,0 +1,798 @@
+@-webkit-keyframes fade_in {
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
+}
+@-moz-keyframes fade_in {
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
+}
+@-o-keyframes fade_in {
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
+}
+@keyframes fade_in {
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@-webkit-keyframes fade_out {
+  0%   { opacity: 1; }
+  100% { opacity: 0; }
+}
+@-moz-keyframes fade_out {
+  0%   { opacity: 1; }
+  100% { opacity: 0; }
+}
+@-o-keyframes fade_out {
+  0%   { opacity: 1; }
+  100% { opacity: 0; }
+}
+@keyframes fade_out {
+  0%   { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+
+@-webkit-keyframes fade_flash {
+  0%   { opacity: 0; }
+  50%  { opacity: 1; }
+  80%  { opacity: 1; }
+  100% { opacity: 0; }
+}
+@-moz-keyframes fade_flash {
+  0%   { opacity: 0; }
+  50%  { opacity: 1; }
+  80%  { opacity: 1; }
+  100% { opacity: 0; }
+}
+@-o-keyframes fade_flash {
+  0%   { opacity: 0; }
+  50%  { opacity: 1; }
+  80%  { opacity: 1; }
+  100% { opacity: 0; }
+}
+@keyframes fade_flash {
+  0%   { opacity: 0; }
+  50%  { opacity: 1; }
+  80%  { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/*Start story_svg_white*/
+.story_svg_white_hide 
+{
+    background-repeat:no-repeat;
+    position:fixed;
+    animation:fade_out 1s linear forwards;
+    -webkit-animation:fade_out 1s linear forwards;
+}
+
+.story_svg_white_show 
+{ 
+    background-repeat:no-repeat;
+    position:fixed;
+    animation:fade_in 1s linear forwards;    
+    -webkit-animation:fade_in 1s linear forwards;    
+}
+
+.story_svg_white_path
+{      
+    fill: white;
+    fill-opacity: 0.5;
+    stroke: #00D8CD;
+    stroke-width: 0.2em;
+}
+
+.story_svg_white_path_focus 
+{
+    fill: white;
+    fill-opacity: 0.5;
+    stroke: #009933;
+    stroke-width: 0.2em;
+}
+
+.story_svg_white_image_show
+{
+    background-repeat:no-repeat;
+    position:fixed;
+}
+
+.story_svg_white_image_hide
+{
+    background-repeat:no-repeat;
+    position:fixed;
+    opacity:0;
+    visibility:hidden;
+}
+
+.story_svg_white_text_show 
+{
+    fill:black;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.story_svg_white_text_hide
+{
+    fill:transparent;
+    fill-opacity:0;
+}
+
+.story_svg_white_text_box_hide
+{
+    fill:transparent;
+    opacity:0;
+}
+
+.story_svg_white_text_box_show
+{
+    fill:red;
+    fill-opacity:0.5;
+}
+
+.story_svg_white_text_box_show_input
+{
+    fill:green;
+    fill-opacity:0.5;
+}
+
+/*Scramble word sentence section*/
+
+.story_svg_white_scramble_hide 
+{
+    background-repeat:no-repeat;
+    position:fixed;
+    opacity:0;
+}
+
+.story_svg_white_scramble_show 
+{ 
+    background-repeat:no-repeat;
+    position:fixed;
+    opacity:1;
+}
+
+.story_svg_white_scramble_text_show 
+{
+    fill:black;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.story_svg_white_scramble_text_box_hide
+{
+    fill:transparent;
+    opacity:0;
+}
+
+.story_svg_white_scramble_text_box_show
+{
+    fill:forestgreen;
+    fill-opacity:1;
+}
+/*End story_svg_white*/
+
+/*Start story_svg_white_instant_hide*/
+.story_svg_white_instant_hide_hide 
+{
+    background-repeat:no-repeat;
+    position:fixed;
+    opacity:0;
+}
+
+.story_svg_white_instant_hide_show 
+{ 
+    background-repeat:no-repeat;
+    position:fixed;
+    animation:fade_in 1s linear forwards;    
+    -webkit-animation:fade_in 1s linear forwards;    
+}
+
+.story_svg_white_instant_hide_path
+{      
+    fill: white;
+    fill-opacity: 0.5;
+    stroke: #00D8CD;
+    stroke-width: 0.2em;
+}
+
+.story_svg_white_instant_hide_path_focus 
+{
+    fill: white;
+    fill-opacity: 0.5;
+    stroke: #009933;
+    stroke-width: 0.2em;
+}
+
+.story_svg_white_instant_hide_image_show
+{
+    background-repeat:no-repeat;
+    position:fixed;
+}
+
+.story_svg_white_instant_hide_image_hide
+{
+    background-repeat:no-repeat;
+    position:fixed;
+    opacity:0;
+    visibility:hidden;
+}
+
+.story_svg_white_instant_hide_text_show 
+{
+    fill:black;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.story_svg_white_instant_hide_text_hide
+{
+    fill:transparent;
+    fill-opacity:0;
+}
+
+.story_svg_white_instant_hide_text_box_hide
+{
+    fill:transparent;
+    opacity:0;
+}
+
+.story_svg_white_instant_hide_text_box_show
+{
+    fill:red;
+    fill-opacity:0.5;
+}
+
+.story_svg_white_instant_hide_text_box_show_input
+{
+    fill:green;
+    fill-opacity:0.5;
+}
+
+/*Scramble word sentence section*/
+
+.story_svg_white_instant_hide_scramble_hide 
+{
+    background-repeat:no-repeat;
+    position:fixed;
+    opacity:0;
+}
+
+.story_svg_white_instant_hide_scramble_show 
+{ 
+    background-repeat:no-repeat;
+    position:fixed;
+    opacity:1;
+}
+
+.story_svg_white_instant_hide_scramble_text_show 
+{
+    fill:black;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.story_svg_white_instant_hide_scramble_text_box_hide
+{
+    fill:transparent;
+    opacity:0;
+}
+
+.story_svg_white_instant_hide_scramble_text_box_show
+{
+    fill:forestgreen;
+    fill-opacity:1;
+}
+/*End story_svg_white_instant_hide*/
+
+
+/*Start story_svg_black*/
+.story_svg_black_hide 
+{
+    background-repeat:no-repeat;
+    position:fixed;
+    animation:fade_out 1s linear forwards;
+    -webkit-animation:fade_out 1s linear forwards;
+}
+
+.story_svg_black_show 
+{ 
+    background-repeat:no-repeat;
+    position:fixed;
+    animation:fade_in 1s linear forwards;    
+    -webkit-animation:fade_in 1s linear forwards;    
+}
+
+.story_svg_black_path
+{      
+    fill: black;
+    fill-opacity: 0.5;
+    stroke: #454545;
+    stroke-width: 0.2em;
+}
+
+.story_svg_black_path_focus 
+{
+    fill: black;
+    fill-opacity: 0.5;
+    stroke: black;
+    stroke-width: 0.2em;
+}
+
+.story_svg_black_image_show
+{
+    background-repeat:no-repeat;
+    position:fixed;
+}
+
+.story_svg_black_image_hide
+{
+    background-repeat:no-repeat;
+    position:fixed;
+    opacity:0;
+    visibility:hidden;
+}
+
+.story_svg_black_text_show 
+{
+    fill:white;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.story_svg_black_text_hide
+{
+    fill:transparent;
+    fill-opacity:0;
+}
+
+.story_svg_black_text_box_hide
+{
+    fill:transparent;
+    opacity:0;
+}
+
+.story_svg_black_text_box_show
+{
+    fill:red;
+    fill-opacity:0.5;
+}
+
+.story_svg_black_text_box_show_input
+{
+    fill:green;
+    fill-opacity:0.5;
+}
+
+/*Scramble word sentence section*/
+
+.story_svg_black_scramble_hide 
+{
+    background-repeat:no-repeat;
+    position:fixed;
+    opacity:0;
+}
+
+.story_svg_black_scramble_show 
+{ 
+    background-repeat:no-repeat;
+    position:fixed;
+    opacity:1;
+}
+
+.story_svg_black_scramble_text_show 
+{
+    fill:white;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.story_svg_black_scramble_text_box_hide
+{
+    fill:transparent;
+    opacity:0;
+}
+
+.story_svg_black_scramble_text_box_show
+{
+    fill:forestgreen;
+    fill-opacity:1;
+}
+/*End story_svg_black*/
+
+/*Start story_svg_black_instant_hide*/
+.story_svg_black_instant_hide_hide 
+{
+    background-repeat:no-repeat;
+    position:fixed;
+    opacity:0;
+}
+
+.story_svg_black_instant_hide_show 
+{ 
+    background-repeat:no-repeat;
+    position:fixed;
+    animation:fade_in 1s linear forwards;    
+    -webkit-animation:fade_in 1s linear forwards;    
+}
+
+.story_svg_black_instant_hide_path
+{      
+    fill: black;
+    fill-opacity: 0.5;
+    stroke: #454545;
+    stroke-width: 0.2em;
+}
+
+.story_svg_black_instant_hide_path_focus 
+{
+    fill: black;
+    fill-opacity: 0.5;
+    stroke: black;
+    stroke-width: 0.2em;
+}
+
+.story_svg_black_instant_hide_image_show
+{
+    background-repeat:no-repeat;
+    position:fixed;
+}
+
+.story_svg_black_instant_hide_image_hide
+{
+    background-repeat:no-repeat;
+    position:fixed;
+    opacity:0;
+    visibility:hidden;
+}
+
+.story_svg_black_instant_hide_text_show 
+{
+    fill:white;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.story_svg_black_instant_hide_text_hide
+{
+    fill:transparent;
+    fill-opacity:0;
+}
+
+.story_svg_black_instant_hide_text_box_hide
+{
+    fill:transparent;
+    opacity:0;
+}
+
+.story_svg_black_instant_hide_text_box_show
+{
+    fill:red;
+    fill-opacity:0.5;
+}
+
+.story_svg_black_instant_hide_text_box_show_input
+{
+    fill:green;
+    fill-opacity:0.5;
+}
+
+/*Scramble word sentence section*/
+
+.story_svg_black_instant_hide_scramble_hide 
+{
+    background-repeat:no-repeat;
+    position:fixed;
+    opacity:0;
+}
+
+.story_svg_black_instant_hide_scramble_show 
+{ 
+    background-repeat:no-repeat;
+    position:fixed;
+    opacity:1;
+}
+
+.story_svg_black_instant_hide_scramble_text_show 
+{
+    fill:white;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.story_svg_black_instant_hide_scramble_text_box_hide
+{
+    fill:transparent;
+    opacity:0;
+}
+
+.story_svg_black_instant_hide_scramble_text_box_show
+{
+    fill:forestgreen;
+    fill-opacity:1;
+}
+/*End story_svg_black_instant_hide*/
+
+
+/*Start story_svg_white_select*/
+.story_svg_white_select_hide 
+{
+    background-repeat:no-repeat;
+    position:fixed;
+    animation:fade_out 3s linear forwards;
+    -webkit-animation:fade_out 3s linear forwards;
+}
+
+.story_svg_white_select_show 
+{ 
+    background-repeat:no-repeat;
+    position:fixed;
+    animation:fade_in 1s linear forwards;    
+    -webkit-animation:fade_in 1s linear forwards;    
+}
+
+.story_svg_white_select_path
+{      
+    fill: transparent;
+    fill-opacity: 0.5;
+    stroke: transparent;
+    stroke-width: 0.2em;
+}
+
+.story_svg_white_select_path_focus 
+{
+    fill: white;
+    fill-opacity: 0.5;
+    stroke: #009933;
+    stroke-width: 0.2em;
+}
+
+.story_svg_white_select_image_show
+{
+    background-repeat:no-repeat;
+    position:fixed;
+}
+
+.story_svg_white_select_image_hide
+{
+    background-repeat:no-repeat;
+    position:fixed;
+    opacity:0;
+    visibility:hidden;
+}
+
+.story_svg_white_select_text_show 
+{
+    fill:black;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.story_svg_white_select_text_hide
+{
+    fill:transparent;
+    fill-opacity:0;
+}
+
+.story_svg_white_select_text_box_hide
+{
+    fill:transparent;
+    opacity:0;
+}
+
+.story_svg_white_select_text_box_show
+{
+    fill:red;
+    fill-opacity:0.5;
+}
+
+.story_svg_white_select_text_box_show_input
+{
+    fill:green;
+    fill-opacity:0.5;
+}
+
+/*Scramble word sentence section*/
+
+.story_svg_white_select_scramble_hide 
+{
+    background-repeat:no-repeat;
+    position:fixed;
+    opacity:0;
+}
+
+.story_svg_white_select_scramble_show 
+{ 
+    background-repeat:no-repeat;
+    position:fixed;
+    opacity:1;
+}
+
+.story_svg_white_select_scramble_text_show 
+{
+    fill:black;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.story_svg_white_select_scramble_text_box_hide
+{
+    fill:transparent;
+    opacity:0;
+}
+
+.story_svg_white_select_scramble_text_box_show
+{
+    fill:forestgreen;
+    fill-opacity:1;
+}
+/*End story_svg_white_select*/
+
+
+/*Start story_svg_hitbox*/
+.story_svg_hitbox_hide 
+{
+    background-repeat:no-repeat;
+    position:fixed;
+    animation:fade_out 1s linear forwards;
+    -webkit-animation:fade_out 1s linear forwards;
+}
+
+.story_svg_hitbox_show 
+{ 
+    background-repeat:no-repeat;
+    position:fixed;
+    animation:fade_in 1s linear forwards;    
+    -webkit-animation:fade_in 1s linear forwards;    
+}
+
+.story_svg_hitbox_path
+{      
+    fill: transparent;
+    fill-opacity: 0.5;
+    stroke: transparent;
+    stroke-width: 0.2em;
+}
+
+.story_svg_hitbox_path_focus 
+{
+    fill: transparent;
+    fill-opacity: 0.5;
+    stroke: transparent;
+    stroke-width: 0.1em;
+}
+
+.story_svg_hitbox_image_show
+{
+    background-repeat:no-repeat;
+    position:fixed;
+}
+
+.story_svg_hitbox_image_hide
+{
+    background-repeat:no-repeat;
+    position:fixed;
+    opacity:0;
+    visibility:hidden;
+}
+
+.story_svg_hitbox_text_show 
+{
+    fill:black;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.story_svg_hitbox_text_hide
+{
+    fill:transparent;
+    fill-opacity:0;
+}
+
+.story_svg_hitbox_text_box_hide
+{
+    fill:transparent;
+    opacity:0;
+}
+
+.story_svg_hitbox_text_box_show
+{
+    fill:red;
+    fill-opacity:0.5;
+}
+
+.story_svg_hitbox_text_box_show_input
+{
+    fill:green;
+    fill-opacity:0.5;
+}
+
+/*Scramble word sentence section*/
+
+.story_svg_hitbox_scramble_hide 
+{
+    background-repeat:no-repeat;
+    position:fixed;
+    opacity:0;
+}
+
+.story_svg_hitbox_scramble_show 
+{ 
+    background-repeat:no-repeat;
+    position:fixed;
+    opacity:1;
+}
+
+.story_svg_hitbox_scramble_text_show 
+{
+    fill:black;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.story_svg_hitbox_scramble_text_box_hide
+{
+    fill:transparent;
+    opacity:0;
+}
+
+.story_svg_hitbox_scramble_text_box_show
+{
+    fill:forestgreen;
+    fill-opacity:1;
+}
+/*End story_svg_hitbox*/
+
+/*Needed to stop fade in animation again, when typing a sentence.*/
+.svg_editor_no_animate{
+    animation: none !important;    
+    -webkit-animation: none !important; 
+}
