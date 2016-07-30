@@ -19,13 +19,13 @@ video_int_scale = null;
 menu_displayed = false;
 
 (function (_AMI, $, undefined) {
-
+_AMI.catalog = {};
 _AMI.get_scale = function get_scale() {
-    return $("#video_size").width() / video_int_width;
+    return $("#video_size").width() / _AMI.catalog.width;
 }
 
 function window_resize() {
-    document.getElementById("story").setAttribute('style', 'font-size:' + Math.floor(video_int_font_size * _AMI.get_scale()) + 'px;');
+    document.getElementById("story").setAttribute('style', 'font-size:' + Math.floor(_AMI.catalog.fontSize * _AMI.get_scale()) + 'px;');
 }
 $(window).resize(window_resize);
 
@@ -52,17 +52,17 @@ function wireup() {
     $(document).on("taphold", function () {
         if (!menu_displayed) {
             menu_displayed = true;
-            if (session_id) {
+            //if (session_id) {
                 $("#story_main_menu").popup("open");
                 if (_AM) {
                     _AM.pause_scene();
                 }
-            } else {
+            /*} else {
                 $("#story_signin").popup("open");
                 if (_AM) {                    
                     _AM.pause_scene();
                 }
-            }
+            }*/
         }
     });
 
@@ -315,9 +315,9 @@ function dep_check() {
 
 _AMI.initOnLoad = function initOnLoad() {
     //get global variables
-    $.get(_ajax_url_globalvars + "/" + c1,
+    $.get(_ajax_url_read_catalog + "/" + c1,
     function (data) {
-        (new Function(data))();
+        _AMI.catalog = data;
         __dependency++;
     });
 
@@ -543,7 +543,7 @@ function resume_slot_change(event) {
 //menu functions.
 _AMI.continue_story = function continue_story() {
     _AM.session_id = session_id;
-    _AM.init_defaults(video_int_width, video_int_height, video_int_font_size, f1);
+    _AM.init_defaults(_AMI.catalog.width, _AMI.catalog.height, _AMI.catalog.fontSize, f1);
     restore_menu_settings();
     _AM.reset_AM();
 
@@ -649,7 +649,7 @@ _AMI.cancel_continue = function cancel_continue() {
 
 _AMI.new_story = function new_story() {
     _AM.session_id = session_id;
-    _AM.init_defaults(video_int_width, video_int_height, video_int_font_size, f1);
+    _AM.init_defaults(_AMI.catalog.width, _AMI.catalog.height, _AMI.catalog.fontSize, f1);
     restore_menu_settings();
     _AM.reset_AM();
 
@@ -701,7 +701,7 @@ _AMI.resume_story = function resume_story() {
         window._story_settings["auto_save"] = 0;        
 
         _AM.session_id = session_id;
-        _AM.init_defaults(video_int_width, video_int_height, video_int_font_size, f1);
+        _AM.init_defaults(_AMI.catalog.width, _AMI.catalog.height, _AMI.catalog.fontSize, f1);
         //save story settings is in here.
         restore_menu_settings();
         _AM.reset_AM();

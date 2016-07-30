@@ -359,12 +359,12 @@
         }
     }
 
-    var session_id = null;
+    /*var session_id = null;
     var catalog_id = null;
 
     if (store.get_local("_AM.session_id")) {
         session_id = store.get_local("_AM.session_id");
-    }
+    }*/
 
     //comes from global.
     if (c1) {        
@@ -373,23 +373,7 @@
 
     $(document).ready(
         function () {
-            if (!('__offline' in window) || !__offline) {
-                if (!window._AME_loaded) {
-                    $.get(_ajax_url_precache + "/" + g1 + "/" + session_id + "/" + g4,
-                    function (data) {
-                        if (data == "false") {
-                            window.location.href = "index.html";
-                        } else {
-                            window._AME_loaded = true;
-                            (new Function(data))();
-                            //this is with in editor, either namespace the editor code or make it attach to window.
-                            _AME.initOnLoad();
-                        }
-                    });
-                }
-            } else {
-                _AME.initOnLoad();
-            }
+            _AME.initOnLoad();
         }         
     );
     </script>      

@@ -19,6 +19,7 @@ __ready = 0;
 
 _AME.cur_select = {};
 _AME.cur_img_scene_select = {};
+_AME.catalog = {};
 
 is_global_prop = false;
 is_scene_selected = false;
@@ -107,9 +108,11 @@ function dep_check() {
 _AME.initOnLoad = function initOnLoad() {
     //get global variables
     show_working();
-    $.get(_ajax_url_globalvars + "/" + c1,
+    $.get(_ajax_url_read_catalog + "/" + c1,
     function (data) {
-        (new Function(data))();
+        //(new Function(data))();
+        _AME.catalog = data;
+
         __dependency++;
     });
 
@@ -175,7 +178,7 @@ function getAdventure_Mashup() {
             }
         } else {
             if (!window._AM_loaded) {
-                $.get(_ajax_url_precache + "/" + g1 + "/" + session_id + "/" + g2,
+                $.get(_ajax_url_read_scene_mongo + "/" + g1 + "/" + g2,
                 function (data) {
                     if (data == "false") {
                         show_sign_in();
@@ -200,7 +203,7 @@ function getAdventure_Mashup() {
 function readyCheck() {
     if (__ready > 0 && window._AM_loaded) {
         _AM.editor = true;
-        _AM.init_defaults(video_int_width, video_int_height, video_int_font_size, f1);
+        _AM.init_defaults(_AMI.catalog.width, _AMI.catalog.height, _AMI.catalog.fontSize, f1);
         _AME.get_objects("~", true, document.getElementById('object_results'), 'all_objects', _AME.cur_select, _AME.explorer_click_scene, _AME.explorer_click_image, true);
         restore_menu_settings();
         _AM.init_save_data();        
@@ -1181,7 +1184,7 @@ _AME.get_objects = function get_objects(search_filter, inc_images, where, res, s
     //$.get(_ajax_url_get_objects + "/" + catalog_id + "/" + session_id + "/" + search_filter,
     show_working();
     $.ajax({
-        url: _ajax_url_get_objects + "/" + catalog_id + "/" + session_id + "/" + search_filter,
+        url: _ajax_url_get_objects + "/" + catalog_id + "/" + search_filter,
         contentType: "application/json; charset=utf-8",
         dataType: "json",
 
@@ -1356,10 +1359,10 @@ _AME.show_story_prop = function show_story_prop() {
     document.getElementById('scene_nav').setAttribute('style', 'display:none;');
     document.getElementById('story_nav').setAttribute('style', '');
 
-    $('#story_movie_size').val(video_int_width + "x" + video_int_height);
-    $('#story_width').val(video_int_width);
-    $('#story_height').val(video_int_height);
-    $('#story_font_size').val(video_int_font_size);
+    $('#story_movie_size').val(_AMI.catalog.width + "x" + _AMI.catalog.height);
+    $('#story_width').val(_AMI.catalog.width);
+    $('#story_height').val(_AMI.catalog.height);
+    $('#story_font_size').val(_AMI.catalog.fontSize);
 
     is_global_prop = true;
 }
@@ -1821,7 +1824,7 @@ function mouse_move(event) {
         var disp_x = last_pan_position.x - pt.x;
         var disp_y = last_pan_position.y - pt.y;
 
-        var sc = $(_AM.video_streams[0]).width() / video_int_width;
+        var sc = $(_AM.video_streams[0]).width() / _AMI.catalog.width;
 
         //transform viewbox.
         //var x1 = ((parseInt(last_viewBox[0]) + disp_x / sc)).toFixed(0);
@@ -1832,7 +1835,7 @@ function mouse_move(event) {
 
 
         //update viewbox on screen.
-        document.getElementById('story_svg').setAttributeNS(null, 'viewBox', x1.toFixed(0) + ' ' + y1.toFixed(0) + ' ' + video_int_width.toFixed(0) + ' ' + video_int_height.toFixed(0));
+        document.getElementById('story_svg').setAttributeNS(null, 'viewBox', x1.toFixed(0) + ' ' + y1.toFixed(0) + ' ' + _AMI.catalog.width.toFixed(0) + ' ' + _AMI.catalog.height.toFixed(0));
         //$(_AM.video_streams[0]).attr("style", "margin-top:" + (-y1*sc).toFixed(0) + "px; margin-left:" + (-x1*sc).toFixed() + "px;");
         //$(_AM.video_streams[1]).attr("style", "margin-top:" + (-y1*sc).toFixed(0) + "px; margin-left:" + (-x1*sc).toFixed() + "px;");
 
@@ -2514,7 +2517,7 @@ function convert_to_array(images) {
 function save_scene(s) {
     //maybe add session number here etc.
     //s.array_images = convert_to_array(s.images);
-
+    /*
     show_working();
     $.ajax({
         type: "POST",
@@ -2543,7 +2546,7 @@ function save_scene(s) {
             //jError('An error has occurred while saving the new part source: ' + jsonValue, { TimeShown: 3000 });
         }
     });
-
+    */
 
     s._id = s.uidGroup.replace(/-/g,'');
     $.ajax({
@@ -2576,63 +2579,30 @@ _AME.set_first_scene = function set_first_scene(s) {
     });
 }
 
-function save_global_prop() {
-    //maybe add session number here etc.
-    //s.array_images = convert_to_array(s.images);
-    var s = {};
+function save_catalog() {
 
     var movie_size = $('#story_movie_size').val().split('x');
 
-    s.video_int_width = parseInt(movie_size[0]);
-    s.video_int_height = parseInt(movie_size[1]);
+    _AMI.catalog.width = parseInt(movie_size[0]);
+    _AMI.catalog.height = parseInt(movie_size[1]);
 
 
-    s.video_int_font_size = $('#story_font_size').val();
+    _AMI.catalog.fontSize = $('#story_font_size').val();
 
     show_working();
     $.ajax({
-        type: "POST",
+        type: "PUT",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
-        url: _ajax_url_save_globalvars + "/" + c1,
-        data: JSON.stringify(s),
-        scene_obj: s,
+        url: _ajax_url_write_catalog + "/" + c1,
+        data: JSON.stringify(_AMI.catalog),
         success: function (data) {
             //alert(data);                   
+            hide_working();
             if (data != 'true') {
-                hide_working();
                 alert(data);
-            } else {
-                //TO DO: success, reload editor.
-                //save the css file.
-                var data = new FormData();
-                var files = $("#css_file").get(0).files;
-
-                // Add the uploaded image content to the form data collection
-                if (files.length > 0) {
-                    data.append("css_file", files[0]);
-
-                    // Make Ajax request with the contentType = false, and procesDate = false
-                    //show_working();
-                    var ajaxRequest = $.ajax({
-                        type: "POST",
-                        url: _ajax_url_upload_css + "/" + c1 + "/" + session_id + "/",
-                        contentType: false,
-                        processData: false,
-                        data: data,
-                        success: function (data) {
-                            hide_working();
-                            //window.location.href = "";
-                            //window.location.href = "editor.html";
-                            window.location.reload(true);
-                        }
-                    });
-                } else {
-                    hide_working();
-                    window.location.reload(true);
-                    //window.location.href = "";
-                    //window.location.href = "editor.html";
-                }
+            }else{
+                window.location.reload(true);
             }
             //check if the scene.title guid exists in the all_objects object, if not add it, and redisplay.
 
@@ -2647,7 +2617,7 @@ function save_global_prop() {
 _AME.save_selected_scene = function save_selected_scene() {
     if (is_global_prop) {
         //TODO: save global properties.
-        save_global_prop();
+        save_catalog();
     } else {
         if (svg_pencil_active) {
             svg_pencil_active = false;
@@ -2697,7 +2667,7 @@ _AME.delete_scene_or_image = function delete_scene_or_image() {
         //delete scene.       
         if (confirm('Are you sure you want to delete this scene?')) {
             show_working();
-            $.get(_ajax_url_delete_scene + "/" + catalog_id + "/" + session_id + "/" + _AME.cur_select.scene_obj.uidGroup,
+            $.get(_ajax_url_delete_scene + "/" + catalog_id + "/" + _AME.cur_select.scene_obj.uidGroup,
                 function (data) {
                     //result of operation.                    
                     _AME.get_objects($('#obj_search').val(), true, document.getElementById('object_results'), 'all_objects', _AME.cur_select, _AME.explorer_click_scene, _AME.explorer_click_image, true);
@@ -2707,7 +2677,7 @@ _AME.delete_scene_or_image = function delete_scene_or_image() {
         //delete image.        
         if (confirm('Are you sure you want to delete this image?')) {
             show_working();
-            $.get(_ajax_url_delete_image + "/" + catalog_id + "/" + session_id + "/" + _AME.cur_select.image_obj.uidGroup,
+            $.get(_ajax_url_delete_image + "/" + catalog_id + "/" + _AME.cur_select.image_obj.uidGroup,
                 function (data) {
                     //result of operation.
 
@@ -3467,7 +3437,7 @@ _AME.svg_pan_reset = function svg_pan_reset() {
     //svg_pan_active = false;
     pan_mouse_is_down = false;
 
-    document.getElementById('story_svg').setAttributeNS(null, 'viewBox', 0 + ' ' + 0 + ' ' + video_int_width + ' ' + video_int_height);
+    document.getElementById('story_svg').setAttributeNS(null, 'viewBox', 0 + ' ' + 0 + ' ' + _AMI.catalog.width + ' ' + _AMI.catalog.height);
 
     _AM.video_streams[0].style.marginTop = "0px";
     _AM.video_streams[0].style.marginLeft = "0px";
@@ -3643,7 +3613,7 @@ _AME.svg_paste = function svg_paste() {
         type: "POST",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
-        url: _ajax_url_get_unique_titles + "/" + c1 + "/" + session_id + "/",
+        url: _ajax_url_get_unique_titles + "/" + c1,
         data: JSON.stringify(paste_bin_comp),
         scene_obj: _AME.cur_select.scene_obj,
         success: function (data) {

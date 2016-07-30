@@ -162,12 +162,12 @@
             }
         }
 
-        var session_id = null;
+        /*var session_id = null;
         var catalog_id = null;
 
         if (store.get_local("_AM.session_id")) {
             session_id = store.get_local("_AM.session_id");
-        }
+        }*/
 
         /*if (c1) {
             store.set_local("_AM.catalog_id", c1);
@@ -186,6 +186,7 @@
                                     (new Function(data))();
                                     //this is with in editor, either namespace the editor code or make it attach to window.
                                     _AMI.initOnLoad();
+                                    /*
                                     $.get(_ajax_url_checksess + "/" + session_id,
                                        function (data) {
                                            if (data == "false") {
@@ -199,11 +200,13 @@
                                                }
                                            }
                                        });
+                                    */
                                 }
                             });
                         }
                     } else {
                         _AMI.initOnLoad();
+                        /*
                         $.get(_ajax_url_checksess + "/" + session_id,
                            function (data) {
                                if (data == "false") {
@@ -217,6 +220,7 @@
                                    }
                                }
                            });
+                        */
                     }
                 }
             );
