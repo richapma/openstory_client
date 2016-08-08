@@ -1,4 +1,4 @@
-﻿/* Copyright (C) Richard Chapman - All Rights Reserved 
+﻿/* fCopyright (C) Richard Chapman - All Rights Reserved 
  * Unauthorized copying of this file, via any medium is strictly prohibited
  * Proprietary and confidential
  * Written by Richard Chapman, 2014
@@ -308,7 +308,7 @@ function wireup() {
 var __dependency = 0;
 
 function dep_check() {
-    if (__dependency > 2) {
+    if (__dependency > 1) {
         //dependencies loaded
         wireup();
     } else {
@@ -318,18 +318,19 @@ function dep_check() {
 
 _AMI.initOnLoad = function initOnLoad() {
     //get global variables
-    $.get(_ajax_url_read_catalog + "/" + c1,
+    $.get(_ajax_url_read_catalog_mongo + "/" + c1,
     function (data) {
+        console.log('read catalog:' + data);
         _AMI.catalog = data;
         __dependency++;
     });
 
     //get first scene
-    $.get(_ajax_url_read_firstscene_mongo + "/" + c1,
+    /*$.get(_ajax_url_read_firstscene_mongo + "/" + c1,
     function (data) {
         (new Function(data))();
         __dependency++;
-    });
+    });*/
 
     //get story_settings.
    
@@ -546,7 +547,7 @@ function resume_slot_change(event) {
 //menu functions.
 _AMI.continue_story = function continue_story() {
     //_AM.session_id = session_id;
-    _AM.init_defaults(_AMI.catalog.width, _AMI.catalog.height, _AMI.catalog.fontSize, f1);
+    _AM.init_defaults(_AMI.catalog.width, _AMI.catalog.height, _AMI.catalog.fontSize, _AMI.catalog.fkuidGroup_t_catalog_scene_first);
     restore_menu_settings();
     _AM.reset_AM();
 
@@ -653,7 +654,7 @@ _AMI.cancel_continue = function cancel_continue() {
 
 _AMI.new_story = function new_story() {
     //_AM.session_id = session_id;
-    _AM.init_defaults(_AMI.catalog.width, _AMI.catalog.height, _AMI.catalog.fontSize, f1);
+    _AM.init_defaults(_AMI.catalog.width, _AMI.catalog.height, _AMI.catalog.fontSize,  _AMI.catalog.fkuidGroup_t_catalog_scene_first);
     restore_menu_settings();
     _AM.reset_AM();
 
@@ -705,7 +706,7 @@ _AMI.resume_story = function resume_story() {
         window._story_settings["auto_save"] = 0;        
 
         //_AM.session_id = session_id;
-        _AM.init_defaults(_AMI.catalog.width, _AMI.catalog.height, _AMI.catalog.fontSize, f1);
+        _AM.init_defaults(_AMI.catalog.width, _AMI.catalog.height, _AMI.catalog.fontSize,  _AMI.catalog.fkuidGroup_t_catalog_scene_first);
         //save story settings is in here.
         restore_menu_settings();
         _AM.reset_AM();

@@ -97,7 +97,7 @@ function hide_working() {
 }
 
 function dep_check() {
-    if (__dependency > 3) {
+    if (__dependency > 1) {
         getAdventure_Mashup();
         wireup();
     } else {
@@ -108,15 +108,14 @@ function dep_check() {
 _AME.initOnLoad = function initOnLoad() {
     //get global variables
     show_working();
-    $.get(_ajax_url_read_catalog + "/" + c1,
+    $.get(_ajax_url_read_catalog_mongo + "/" + c1,
     function (data) {
         //(new Function(data))();
-        _AME.catalog = data;
-
+        _AME.catalog = data;  
         __dependency++;
     });
 
-    __dependency++;
+    //__dependency++;
 /*
     $.get(_ajax_url_read_scene_mongo + "/" + g1 + "/" + g3,
     function (data) {
@@ -130,11 +129,11 @@ _AME.initOnLoad = function initOnLoad() {
 */
 
     //get first scene
-    $.get(_ajax_url_read_firstscene_mongo + "/" + c1,
+    /*$.get(_ajax_url_read_firstscene_mongo + "/" + c1,
     function (data) {
         (new Function(data))();
         __dependency++;
-    });
+    });*/
 
 
     //get story_settings.
@@ -203,7 +202,7 @@ function getAdventure_Mashup() {
 function readyCheck() {
     if (__ready > 0 && window._AM_loaded) {
         _AM.editor = true;
-        _AM.init_defaults(_AMI.catalog.width, _AMI.catalog.height, _AMI.catalog.fontSize, f1);
+        _AM.init_defaults(_AME.catalog.width, _AME.catalog.height, _AME.catalog.fontSize, _AME.catalog.fkuidGroup_t_catalog_scene_first);
         _AME.get_objects("~", true, document.getElementById('object_results'), 'all_objects', _AME.cur_select, _AME.explorer_click_scene, _AME.explorer_click_image, true);
         restore_menu_settings();
         _AM.init_save_data();        
@@ -1192,7 +1191,7 @@ _AME.get_objects = function get_objects(search_filter, inc_images, where, res, s
             //(new Function(data))();
             $(where).empty();
             if (data != 'false') {
-                window[res] = JSON.parse(data);
+                window[res] = data;
                 //load them into list.
                 var count = 0;
                 var f_scene;
@@ -2594,7 +2593,7 @@ function save_catalog() {
         type: "PUT",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
-        url: _ajax_url_write_catalog + "/" + c1,
+        url: _ajax_url_write_catalog_mongo + "/" + c1,
         data: JSON.stringify(_AMI.catalog),
         success: function (data) {
             //alert(data);                   
