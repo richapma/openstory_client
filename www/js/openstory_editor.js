@@ -2546,8 +2546,10 @@ function save_scene(s) {
         }
     });
     */
+    if(!s._id){
+        s._id = 'NEW';
+    }
 
-    s._id = s.uidGroup.replace(/-/g,'');
     $.ajax({
         type: "PUT",
         contentType: "application/json; charset=utf-8",
@@ -2556,7 +2558,7 @@ function save_scene(s) {
         data: JSON.stringify(s),
         scene_obj: s,
         success: function (data) {
-            delete this.scene_obj._id;  
+            //delete this.scene_obj._id;  
         },
         error: function (error) {
             jsonValue = JSON.parse(error.responseText);
